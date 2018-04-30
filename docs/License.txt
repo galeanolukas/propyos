@@ -1,0 +1,11 @@
+﻿Propyos viene sin garantías ni garantías de ningún tipo,
+Ya sea escrito o implícito.
+
+Propyos importa la licencias Porteus Kiosk Editon,
+porteus Kiosk es lanzado bajo GPL. Consulte el archivo 
+GNU_GPL para obtener más detalles.
+Los paquetes individuales en la distribución
+pueden venir con sus propias licencias.
+
+Http://www.propyos.com
+

@@ -1,0 +1,28 @@
+#!/bin/bash
+# ---------------------------------------------------------
+# Script para crear una ISO PROPIOS arrancable.
+# Autor: fanthom <http://porteus-kiosk.org>
+# Modificado por: Lukas <www.propyos.com>
+# ---------------------------------------------------------
+Version=$1
+
+echo "Este Script creara una iso de su OS en su carpeta."
+echo "Presiones ENTER para continuar...."
+read
+
+echo "ProPyOS-$Version" > docs/version
+# UEFI check:
+[ -e boot/isolinux/efi/efiboot.img ] && efi="-eltorito-alt-boot -eltorito-platform 0xEF -eltorito-boot boot/isolinux/efi/efiboot.img -no-emul-boot"
+
+mkisofs -o ../PROPYOS-x86_64-$Version.iso -l -J -joliet-long -R -D -A "ProPyOS" \
+-V "ProPyOS" -no-emul-boot -boot-info-table -boot-load-size 4 \
+-b boot/isolinux/isolinux.bin -c boot/isolinux/isolinux.boot $efi . > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+    echo "Salvado como [1;33m`pwd | rev | cut -d/ -f2- | rev`/PROPYOS-x86_64-$Version.iso[0m."
+	isohybrid -u ../PROPYOS-x86_64-$Version.iso
+	
+else
+    echo "Algo salio mal - No se pudo crear la iso. Por Favor use 'mkisofs' utility, de la ultima version del paquete 'cdrtools' y no 'cdr-kit'."
+    sleep 2
+fi
